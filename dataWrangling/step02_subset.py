@@ -1,19 +1,18 @@
 # step02_subset.py
 
 import pandas as pd
-pd.set_option("display.max_rows", None, "display.max_columns", None)
 
+# change viewing options
+pd.set_option("display.max_rows", None, "display.max_columns", None)
 
 # read in rawData
 raw_df = pd.read_csv('rawData.csv', sep=',', header=0)
-
 
 # extract lists of the site names and dune positions
 def make_lists():
     global site_list, dune_list
     site_list = raw_df['Site'].dropna().unique().tolist()
     dune_list = raw_df['Dune Zone'].dropna().unique().tolist()
-
 
 # set global variables
 site_dict = {}
@@ -23,7 +22,7 @@ plot_dict = {}
 frames_dict = {}
 frames = []
 
-
+# define 'subset' function
 def subset_by(site):
 	#
 	global site_dict, grid_dict, dune_dict, plot_dict, frames_dict, frames
@@ -69,17 +68,20 @@ def subset_by(site):
 
 
 
+# define main
 def main():
+	# run make_lists function
 	make_lists()
+	# run subset function
 	for site in site_list:
 		subset_by(site)
+	# merge all the plot dataframes into 1 dataframe
+	subsetData = pd.concat(frames, sort=False)
+	# replace NA with 0
+	subsetData.fillna(0, inplace=True)
+	# write out file
+	subsetData.to_csv(r'/path/to/subsetData.csv', index=False)
 
-
+# execute main
 if __name__ == '__main__':
     main()
-
-
-subsetData = pd.concat(frames, sort=False)
-subsetData.fillna(0, inplace=True)
-
-subsetData.to_csv(r'/path/to/subsetData.csv', index=False)
