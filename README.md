@@ -6,7 +6,7 @@
 * Step 1 :
     * Enter data into rawData.csv
     * **The full CSV file belongs to the Desert Ecology Research Group (DERG) (http://www.desertecology.edu.au/)**
-    * Contact the DERG for access to raw data. 
+    * Contact the DERG for access to the complete raw data. 
 * **step02_subset.py** :
     * Outputs *subsetData.csv* ready for step03 and step04
 * **step03_primerCSV.py** :
