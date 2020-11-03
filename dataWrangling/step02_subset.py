@@ -24,7 +24,6 @@ frames_dict = {}
 frames = []
 
 
-
 def subset_by(site):
 	#
 	global site_dict, grid_dict, dune_dict, plot_dict, frames_dict, frames
@@ -70,9 +69,6 @@ def subset_by(site):
 
 
 
-
-
-
 def main():
 	make_lists()
 	for site in site_list:
@@ -86,7 +82,4 @@ if __name__ == '__main__':
 subsetData = pd.concat(frames, sort=False)
 subsetData.fillna(0, inplace=True)
 
-# print(subsetData)
-
-subsetData.to_csv(r'/Users/kyleclaravall/Google Drive/UNI DOCS/2020_SEM2/BIOL3907/Seed Banks/local_panda/subsetData.csv', index=False)
-
+subsetData.to_csv(r'/path/to/subsetData.csv', index=False)
