@@ -7,45 +7,55 @@
 library(vegan)
 library(MASS)
 
-# data wrangling
+# read in primerCSV
 SeedData <- read.csv("data/primerCSV.csv", header=TRUE)
 ActiveData <- SeedData[as.logical(rowSums(SeedData != 0)), ]
 
+# read in siteFactors
 SeedFactors <- read.csv("data/siteFactors.csv", header=TRUE)
 SeedFactors <- SeedFactors[as.logical(rowSums(SeedData != 0)), ]
 
-
+# exclude outliers from ordination
 ActiveData <- ActiveData[!grepl('SH.5.Crest.11',SeedFactors$Plot),]
 SeedFactors <- SeedFactors[!grepl('SH.5.Crest.11', SeedFactors$Plot),]
-
+# outlier
 ActiveData <- ActiveData[!grepl('MC.C.Crest.14',SeedFactors$Plot),]
 SeedFactors <- SeedFactors[!grepl('MC.C.Crest.14', SeedFactors$Plot),]
 
-
-
+# fourth-root transformation of species count data
 TransSeedData <- (ActiveData)^(1/4)
 
 
 
-# calculate distance matrix
+# calculate dissimilarity matrix using Bray curtis distance
 Seed_Factor <- factor(SeedFactors$Burn)
 nMDS_Seed <- metaMDS(TransSeedData, distance="bray", k=2)
+# Uncomment line for 3D ordination
 # nMDS_Seed <- metaMDS(TransSeedData, distance="bray", k=3)
+
+
+# print NMDS output; see stress value
 nMDS_Seed
 
 
 
-
-
-# data wrangling
+# data wrangling to plot ordination
 library(FactoMineR)
+
+# write out x-y coordinates of the NMDS ordination into 'points.csv'
 write.infile(nMDS_Seed[["points"]], 'Data/points.csv', sep=',')
+
+# read in points.csv
 points_df <- read.csv('Data/points.csv')
+
+# create column 'MDS1'
 nmds_points <- cbind(SeedFactors, MDS1 = points_df$MDS1)
+# create column 'MDS2
 nmds_points <- cbind(nmds_points, MDS2 = points_df$MDS2)
+
+
+# Uncomment the following lines for 3D ordination
 # nmds_points <- cbind(nmds_points, MDS3 = points_df$MDS3)
-# 
-# 
 # 
 # 
 # library(car)
@@ -57,17 +67,17 @@ nmds_points <- cbind(nmds_points, MDS2 = points_df$MDS2)
 #           axis.scales = FALSE,
 #           labels = nmds_points$Plot)
 
-
 ##################################################################
 ##                          Section 2:                          ##
 ##                          Plot nMDS                           ##
 ##################################################################
 
+# alternative method to exclude outliers
 # nmds_points <- nmds_points[!grepl('SH.5.Crest.11',nmds_points$Plot),]
 
 
-library(ggpubr)
-library(cowplot)
+library(ggpubr) # ggscatter function
+library(cowplot) # plot_grid function
 
 p1 <- ggscatter(nmds_points, x = "MDS1", y = "MDS2", color = "Burn", shape = "Burn",
                 #label = "Plot",# repel = TRUE,
@@ -86,20 +96,8 @@ p2 <- ggscatter(nmds_points, x = "MDS1", y = "MDS2", color = "Dune", shape = "Du
   labs(color = "Dune Position", shape = "Dune Position", fill = "Dune Position")
 
 
-
-
 plot_grid(p1, p2, labels = "AUTO", label_size = 35)
 # > export > PDF> 18.75 x 10
-
-ggscatter(nmds_points, x = "MDS1", y = "MDS2", color = "Burn", shape = "Burn",
-          label = "Plot",# repel = TRUE,
-          ellipse = TRUE,# ellipse.type = 'confidence',
-          palette = "Dark2", alpha = 0.8,
-          size = 5) +
-  theme(text=element_text(size=25)) +
-  labs(color = "Burn Status", shape = "Burn Status", fill = "Burn Status")
-
-
 
 
 ##################################################################
@@ -107,11 +105,14 @@ ggscatter(nmds_points, x = "MDS1", y = "MDS2", color = "Burn", shape = "Burn",
 ##                          PERMANOVA                           ##
 ##################################################################
 
-
+# conduct PERMANOVA
 adonis(TransSeedData ~ Burn*Dune, data = SeedFactors, permutations = 999)
+
+# set variables for the following function
 x = TransSeedData
 factors=SeedFactors$Burn
 
+# create custom function for pairwise PERMANOVA constrasts
 pairwise.adonis <- function(x,factors, sim.function = 'vegdist', sim.method = 'bray', p.adjust.m ='bonferroni')
 {
   library(vegan)
@@ -147,8 +148,10 @@ pairwise.adonis <- function(x,factors, sim.function = 'vegdist', sim.method = 'b
   
 } 
 
+# compare burn status
 pairwiseSeeds = pairwise.adonis(TransSeedData, SeedFactors$Burn)
 pairwiseSeeds
 
+# compare dune position
 pairwiseSeeds = pairwise.adonis(TransSeedData, SeedFactors$Dune)
 pairwiseSeeds
