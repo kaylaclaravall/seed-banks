@@ -294,5 +294,3 @@ shapiro.test(residuals(fit.Abun_FrRoot))
 #---- Games-Howell
 oneway(glm_df$Dune, y = glm_df$Abun_FrRoot, posthoc = 'games-howell')
 
-
-
