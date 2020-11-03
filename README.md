@@ -1,4 +1,4 @@
-# Influences of fire and dune position on the composition of seed banks in the Simpson desert.
+# The hidden diversity of arid landscapes: Influences of fire on the species assemblage of seed banks
 * This project uses multivariate statistics to examine the effect of fire and dune position on the composition of seed banks in the Simpson Desert.
 
 ### Data wrangling
