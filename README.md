@@ -22,10 +22,10 @@
     * (2) Calculates partial eta-squared effect sizes and produces forest plot outputs. 
 
 ### Ordination plots
-![NMDS](/ROutputs/NMDS_concEllipse.pdf)
+![NMDS](/ROutputs/NMDS_concEllipse.png)
 
 ### Barplots
-![Bar](/ROutputs/SWI_barPlot.pdf)
+![Bar](/ROutputs/SWI_barPlot.png)
 
 ### Forest plots
-![Forest](/ROutputs/SWI_eta2Partial.pdf)
+![Forest](/ROutputs/SWI_eta2Partial.png)
