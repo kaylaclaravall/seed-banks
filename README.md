@@ -27,8 +27,5 @@
 ### Ordination plots
 ![NMDS](/ROutputs/NMDS_concEllipse.png)
 
-### Barplots
-![Bar](/ROutputs/SWI_barPlot.png)
-
-### Forest plots
-![Forest](/ROutputs/SWI_eta2Partial.png)
+### Barplots and effecy sizes
+![Bar](/ROutputs/SWI_both.png)
