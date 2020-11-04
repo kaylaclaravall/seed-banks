@@ -27,5 +27,5 @@
 ### Ordination plots
 ![NMDS](/ROutputs/NMDS_concEllipse.png)
 
-### Barplots and effecy sizes
+### Barplots and effect sizes
 ![Bar](/ROutputs/SWI_both.png)
