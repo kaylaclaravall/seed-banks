@@ -18,7 +18,8 @@
 * This folder contains the R scripts used to conduct multivariate analyses.
 * **Seeds_NMDS.R** :
     * (1) Conducts 2D non-metric multidimensional scaling (NMDS) with ordination plot output.
-    * (2) Conducts a permutational multivariate analysis of variance (PERMANOVA).
+    * (2) Conducts a permutational multivariate analysis of variance (PERMANOVA) with post-hoc pairwise comparisons.
+    * (3) Calculates similarity percentages (SIMPER) following significant pariwise differences.
 * **Seeds_GLM.R** :
     * (1) Conducts two-way analysis of variance (ANOVA) with type III sums of squares followed by Games-Howell post-hoc tests with barplot outputs.
     * (2) Calculates partial eta-squared effect sizes and produces forest plot outputs. 
