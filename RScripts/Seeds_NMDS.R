@@ -155,3 +155,17 @@ pairwiseSeeds
 # compare dune position
 pairwiseSeeds = pairwise.adonis(TransSeedData, SeedFactors$Dune)
 pairwiseSeeds
+
+
+##################################################################
+##                          Section 4:                          ##
+##                            SIMPER                            ##
+##################################################################
+
+# following up significant pairwise differences
+
+seedsim.burn <- simper(TransSeedData, SeedFactors$Burn)
+summary(seedsim.burn)
+
+seedsim.dune <- simper(TransSeedData, SeedFactors$Dune)
+summary(seedsim.dune)
