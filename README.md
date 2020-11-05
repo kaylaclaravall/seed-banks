@@ -23,9 +23,3 @@
 * **Seeds_GLM.R** :
     * (1) Conducts two-way analysis of variance (ANOVA) with type III sums of squares followed by Games-Howell post-hoc tests with barplot outputs.
     * (2) Calculates partial eta-squared effect sizes and produces forest plot outputs. 
-
-### Ordination plots
-![NMDS](/ROutputs/NMDS_concEllipse.png)
-
-### Barplots and effect sizes
-![Bar](/ROutputs/SWI_both.png)
